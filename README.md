@@ -8,6 +8,7 @@
 6. [Análisis De Los Resultados](#análisis-de-resultados)
 7. [Aplicación Biomédica](#aplicación-biomédica)
 ## OBJETIVO Y METODOLOGÍA DEL EXPERIMENTO
+En esencia, la presente práctica tiene como objetivo extrapolar la capacidad de medir y explicar una señal EMG 
 ## ADQUISICIÓN DE LA SEÑAL 
 ## FILTRADO DE LA SEÑAL 
 ## APLICACIÓN DE VENTANAS 
