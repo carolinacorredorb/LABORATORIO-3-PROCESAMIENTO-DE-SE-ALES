@@ -158,7 +158,7 @@ El análisis espectral revela que, a medida que se avanza en las contracciones, 
 
 La disminución de la frecuencia mediana en cada contracción es un indicador clave de la fatiga muscular. A medida que se incrementa el número de contracciones, la frecuencia mediana disminuye consistentemente, sugiriendo que el músculo braquioradial pierde efectividad en la generación de fuerza, lo que se traduce en un estado de fatiga.
 
-### PRUEBA DE HIPÓTESIS
+### Prueba de hipótesis
 Para determinar si el cambio en la frecuencia mediana es estadísticamente significativo, se realiza un test t de muestras independientes entre la frecuencia mediana de la primera y la última contracción.
 
 - Frecuencia media de la primera contracción:223.64 Hz
@@ -177,6 +177,8 @@ La prueba de hipótesis se diseñó para evaluar si existe una diferencia signif
 Con un p-valor de 0.7600, que es muy superior al nivel de significancia comúnmente utilizado de 0.05, no se rechaza la hipótesis nula. Esto implica que no hay evidencia suficiente para concluir que existe una diferencia significativa entre la frecuencia media de la primera contracción y la última.
 
 Dado que los resultados no muestran diferencias significativas entre las frecuencias medias, se puede concluir que el músculo braquioradial no presenta un cambio significativo en su capacidad de contracción entre la primera y la última contracción del experimento. Esto sugiere que, en este caso específico, no hay evidencia de que la fatiga muscular haya afectado la frecuencia de las contracciones durante el periodo analizado.
+
+Por otro lado, se logró aplicar de forma exitosa el filtro pasabanda y se ccomprobó su funcionalidad que en conjunto con el método de aventanamiento Hanning limpio la señal de forma efectiva.
 
 ## APLICACIÓN BIOMÉDICA
 El presente laboratorio tiene variedad de aplicaciones para la ingeniería biomédica, ya que contribuye al entendimiento de la función muscular y puede ser útil en varias áreas de la salud. Por ejemplo, la fatiga muscular es un fenómeno clave en la rehabilitación de pacientes con lesiones o en proceso de recuperación tras una cirugía,a modo que, los terapeutas pueden ajustar las sesiones de ejercicio de acuerdo con el estado muscular de cada paciente, evitando el sobreesfuerzo. También,  es una herramienta poderosa para diagnosticar enfermedades neuromusculares, como en el caso de la esclerosis lateral amiotrófica o la fatiga crónica (miopatías). 
