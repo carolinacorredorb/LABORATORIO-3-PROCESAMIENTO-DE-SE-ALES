@@ -35,6 +35,63 @@ Como se mencionó anteriormente se busca encontrar la llegada del músculo a la 
 
 Se selecciona el filtro Butterworth pues es ideal para señales EMG ofreciendo una respuesta plana en la banda de paso, evitando así distorsiones en las frecuencias de interés. Su transición suave entre las bandas, adicional a ello en contraste con otros tipos de filtros no introduce ondulaciones como Chebyshev. El orden del filtro se asumió n = 4 y de acuerdo a ello se calcularon los Ks de la configuración. Como se muestra a continuación:
 
+Librerias necesarias:
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.signal import butter, filtfilt, windows
+from scipy import stats
+```
+
+Funciones y cálculso para creación de filtro pasabanda, aplicación respectivamente y cálculo del riple:
+
+```python
+Fs = 596  # Frecuencia de muestreo de 596 Hz
+
+Omega1 = 200  
+Omega2 = 250  
+Omega_c = np.sqrt(Omega1 * Omega2)  # Frecuencia de corte central
+n = 4  
+
+K1 = 10 * np.log10(1 / (1 + (Omega1 / Omega_c) ** (2 * n)))
+K2 = 10 * np.log10(1 / (1 + (Omega2 / Omega_c) ** (2 * n)))
+
+
+def butter_bandpass(lowcut, highcut, Fs, order=4):
+    nyquist = 0.5 * Fs  # Frecuencia de Nyquist
+    low = lowcut / nyquist
+    high = highcut / nyquist
+    b, a = butter(order, [low, high], btype='band')
+    return b, a
+
+
+def aplicar_filtro(data, lowcut, highcut, Fs, order=4):
+    b, a = butter_bandpass(lowcut, highcut, Fs, order=order)
+    y = filtfilt(b, a, data)
+    return y
+
+lowcut = Omega1  # 200 Hz (Ω1)
+highcut = Omega2  # 250 Hz (Ω2)
+
+valores_filtrados = aplicar_filtro(valores, lowcut, highcut, Fs)
+
+# Gráfico de la señal filtrada
+plt.figure(figsize=(20, 6))  # Aumentar el tamaño del gráfico
+plt.plot(tiempo, valores_filtrados, label='Señal Filtrada', color='green')
+plt.title(f'Señal EMG Filtrada (Pasabanda {lowcut}-{highcut} Hz)')
+plt.xlabel('Tiempo (s)')
+plt.ylabel('Voltaje (mV)')
+plt.grid(True)
+plt.legend()
+
+plt.show()
+
+#Riple del filtro:
+
+ripple = K1 - K2
+print(f"Tamaño del ripple: {ripple:.2f} dB")
+```
 
 
 
