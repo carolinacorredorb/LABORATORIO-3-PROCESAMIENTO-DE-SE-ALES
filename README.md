@@ -117,8 +117,10 @@ El análisis espectral es crucial en el estudio de la fatiga muscular, ya que pe
 5. Cálculo de la Transformada de Fourier: Se calculó la FFT para cada contracción, y se extrajeron las magnitudes de la transformada para evaluar el espectro de frecuencias.
 
 6. Frecuencia Mediana: Para cada contracción, se calculó la frecuencia mediana como una medida representativa de la actividad muscular en esa ventana.
+   
 ### Observación de Cambios en el Espectro de la Señal
-El siguiente gráfico muestra cómo cambia el espectro de la señal en cada ventana conforme se acerca la fatiga muscular:
+
+El análisis espectral revela que, a medida que se avanza en las contracciones, las magnitudes en frecuencias más altas tienden a disminuir. Este fenómeno indica una disminución en la capacidad del músculo para generar fuerza, lo que es característico del inicio de la fatiga muscular. A medida que el músculo se fatiga, se espera que el espectro de la señal EMG refleje una reducción en la energía de las frecuencias más altas, sugiriendo que el músculo no puede mantener su rendimiento óptimo.
 
 <div align="center">
   <img src="contra1.jpg" alt="SEÑAL EMG BRAQUIRADIAL" width="800"/>
@@ -128,8 +130,29 @@ El siguiente gráfico muestra cómo cambia el espectro de la señal en cada vent
   <img src="contra2.jpg" alt="SEÑAL EMG BRAQUIRADIAL" width="800"/>
 </div>
 
+### Evaluación de la Frecuencia Mediana
 
+La disminución de la frecuencia mediana en cada contracción es un indicador clave de la fatiga muscular. A medida que se incrementa el número de contracciones, la frecuencia mediana disminuye consistentemente, sugiriendo que el músculo braquioradial pierde efectividad en la generación de fuerza, lo que se traduce en un estado de fatiga.
 
+### PRUEBA DE HIPÓTESIS
+Para determinar si el cambio en la frecuencia mediana es estadísticamente significativo, se realiza un test t de muestras independientes entre la frecuencia mediana de la primera y la última contracción.
+
+- Frecuencia media de la primera contracción:223.64 Hz
+- Frecuencia media de la última contracción: 225.22 Hz 
+- Estadístico t:-0.61
+- p-valor: 0.7600
+  
 ## ANÁLISIS DE RESULTADOS
+
+La prueba de hipótesis se diseñó para evaluar si existe una diferencia significativa en la frecuencia media de las contracciones del músculo braquioradial entre la primera y la última contracción. La hipótesis nula (H₀) establece que no hay diferencia significativa entre las frecuencias medias, mientras que la hipótesis alternativa (H₁) sugiere que sí hay una diferencia significativa.
+
+- Estadístico t: El valor de -0.61 indica que la diferencia observada entre las frecuencias medias no es considerable en términos de magnitud, sugiriendo que ambas frecuencias son muy similares.
+  
+- p-valor: Un p-valor de 0.7600 es considerablemente alto y sugiere que la probabilidad de observar una diferencia en las medias (o una diferencia más extrema) si la hipótesis nula es cierta es del 76%.
+
+Con un p-valor de 0.7600, que es muy superior al nivel de significancia comúnmente utilizado de 0.05, no se rechaza la hipótesis nula. Esto implica que no hay evidencia suficiente para concluir que existe una diferencia significativa entre la frecuencia media de la primera contracción y la última.
+
+Dado que los resultados no muestran diferencias significativas entre las frecuencias medias, se puede concluir que el músculo braquioradial no presenta un cambio significativo en su capacidad de contracción entre la primera y la última contracción del experimento. Esto sugiere que, en este caso específico, no hay evidencia de que la fatiga muscular haya afectado la frecuencia de las contracciones durante el periodo analizado.
+
 ## APLICACIÓN BIOMÉDICA
 El presente laboratorio tiene variedad de aplicaciones para la ingeniería biomédica, ya que contribuye al entendimiento de la función muscular y puede ser útil en varias áreas de la salud. Por ejemplo, la fatiga muscular es un fenómeno clave en la rehabilitación de pacientes con lesiones o en proceso de recuperación tras una cirugía,a modo que, los terapeutas pueden ajustar las sesiones de ejercicio de acuerdo con el estado muscular de cada paciente, evitando el sobreesfuerzo. También,  es una herramienta poderosa para diagnosticar enfermedades neuromusculares, como en el caso de la esclerosis lateral amiotrófica o la fatiga crónica (miopatías). 
