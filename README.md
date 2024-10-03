@@ -101,7 +101,35 @@ Se obtuvo entonces la siguiente señal filtrada
 
 
 ## APLICACIÓN DE VENTANAS 
+
 ## ANÁLISIS ESPECTRAL
+
+El análisis espectral es crucial en el estudio de la fatiga muscular, ya que permite identificar cambios en las características de la señal EMG a medida que se producen contracciones sucesivas. En este análisis, se evaluará cómo cambia el espectro de la señal EMG en cada ventana, se analizará la frecuencia mediana y se realizará una prueba de hipótesis para determinar la significancia estadística de estos cambios.
+
+### Proceso de Análisis Espectral
+
+1. Filtrado de la Señal: Se utilizó un filtro pasabanda para centrarse en las frecuencias relevantes de la señal EMG (200-250 Hz).
+
+2. División en Ventanas: La señal filtrada se dividió en ventanas (contracciones) utilizando el método dividir_en_contracciones, donde se generaron 24 contracciones a partir de la señal original.
+3. 
+4. Aplicación de Ventanas de Hanning: Cada contracción se multiplicó por una ventana de Hanning para suavizar la señal y reducir el leakage en el espectro.
+
+5. Cálculo de la Transformada de Fourier: Se calculó la FFT para cada contracción, y se extrajeron las magnitudes de la transformada para evaluar el espectro de frecuencias.
+
+6. Frecuencia Mediana: Para cada contracción, se calculó la frecuencia mediana como una medida representativa de la actividad muscular en esa ventana.
+### Observación de Cambios en el Espectro de la Señal
+El siguiente gráfico muestra cómo cambia el espectro de la señal en cada ventana conforme se acerca la fatiga muscular:
+
+<div align="center">
+  <img src="contra1.jpg" alt="SEÑAL EMG BRAQUIRADIAL" width="800"/>
+</div>
+
+<div align="center">
+  <img src="contra2.jpg" alt="SEÑAL EMG BRAQUIRADIAL" width="800"/>
+</div>
+
+
+
 ## ANÁLISIS DE RESULTADOS
 ## APLICACIÓN BIOMÉDICA
 El presente laboratorio tiene variedad de aplicaciones para la ingeniería biomédica, ya que contribuye al entendimiento de la función muscular y puede ser útil en varias áreas de la salud. Por ejemplo, la fatiga muscular es un fenómeno clave en la rehabilitación de pacientes con lesiones o en proceso de recuperación tras una cirugía,a modo que, los terapeutas pueden ajustar las sesiones de ejercicio de acuerdo con el estado muscular de cada paciente, evitando el sobreesfuerzo. También,  es una herramienta poderosa para diagnosticar enfermedades neuromusculares, como en el caso de la esclerosis lateral amiotrófica o la fatiga crónica (miopatías). 
