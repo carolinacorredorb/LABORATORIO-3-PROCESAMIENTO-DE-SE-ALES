@@ -93,7 +93,11 @@ ripple = K1 - K2
 print(f"Tamaño del ripple: {ripple:.2f} dB")
 ```
 
+Se obtuvo entonces la siguiente señal filtrada
 
+<div align="center">
+  <img src="señal filtrada lab 3.jpg" alt="SEÑAL EMG BRAQUIRADIAL FILTRADA" width="800"/>
+</div>
 
 
 ## APLICACIÓN DE VENTANAS 
