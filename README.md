@@ -25,6 +25,10 @@ La señal electromiográfica (EMG) fue adquirida utilizando el sensor AD8232 con
 
 Después de haber guardado y procesado la señal, en python se muestra la gráfica capturada con todas sus características, tales como, frecuencia de muestreo, tiempo de muestreo, longitud de la señal, cantidad de contracciones y músculo medido, como se muestra en la siguiente imagen. 
 
+<div align="center">
+  <img src="señalemg.jpg" alt="SEÑAL EMG BRAQUIRADIAL" width="800"/>
+</div>
+
 ## FILTRADO DE LA SEÑAL 
 ## APLICACIÓN DE VENTANAS 
 ## ANÁLISIS ESPECTRAL
