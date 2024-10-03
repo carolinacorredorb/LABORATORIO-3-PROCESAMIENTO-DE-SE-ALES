@@ -113,7 +113,11 @@ Para llevar a cabo un sistema que logre distinguir entre la hipótesis de si la 
 Se ejemplifica el aventanamiento a cada contracción con la primera y la última respectivamente:
 
 <div align="center">
-  <img src="señal filtrada lab 3.png" alt="SEÑAL EMG BRAQUIRADIAL FILTRADA" width="800"/>
+  <img src="ultima contraccion ya ventana.png" alt="SEÑAL 1 con ventana" width="800"/>
+</div>
+
+<div align="center">
+  <img src="ultima contraccion ya ventana.png" alt="SEÑAL 2 con ventana" width="800"/>
 </div>
 
 ## ANÁLISIS ESPECTRAL
