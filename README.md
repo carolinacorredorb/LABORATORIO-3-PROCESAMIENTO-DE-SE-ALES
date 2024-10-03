@@ -110,7 +110,7 @@ Para llevar a cabo un sistema que logre distinguir entre la hipótesis de si la 
   <img src="ventana hanning sin aplicar.png" alt="VENTANA HANNING SIN APLICAR" width="800"/>
 </div
 
-Se ejemplifica el aventanamiento a cada contracción con la primera y la última respectivamente:
+Posteriormente se realizó la convolución entre esta y la señal obteniendo de forma exitosa una señal más limpia en el dominio del tiempo como se ejemplifica a continuación con la primera y la última respectivamente:
 
 <div align="center">
   <img src="ultima contraccion ya ventana.png" alt="SEÑAL 1 con ventana" width="800"/>
@@ -118,6 +118,12 @@ Se ejemplifica el aventanamiento a cada contracción con la primera y la últ
 
 <div align="center">
   <img src="ultima contraccion ya ventana.png" alt="SEÑAL 2 con ventana" width="800"/>
+</div>
+
+Finalmente a lo largo de toda la señal al aplicar la convolución con la ventana se vería de la siguiente forma:
+
+<div align="center">
+  <img src="toda la señal ventana.png" alt="SEÑAL  toda con ventana" width="800"/>
 </div>
 
 ## ANÁLISIS ESPECTRAL
