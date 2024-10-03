@@ -102,6 +102,20 @@ Se obtuvo entonces la siguiente señal filtrada
 
 ## APLICACIÓN DE VENTANAS 
 
+Luego de obtener la señal filtrada se procedio a hacer el aventanamiento:
+
+Para llevar a cabo un sistema que logre distinguir entre la hipótesis de si la mediana disminuye o no, se seleccionó el método de Hanning para aplicar un aventanamiento suave a las contracciones de la señal EMG, lo que ayuda a minimizar los efectos de discontinuidades en los extremos de las ventanas. Asignando menos peso a los valores de los extremos y más a los valores centrales. Este método fue óptimo al estar tratando con segmentos ( contracciones musculares), porque atenúa las transiciones abruptas entre ellos, mejorando la calidad de las frecuencias analizadas. Primero se planteó la gráfica de la ventana sin aplicar a la señal EMG obteniendo lo siguiente:
+
+<div align="center">
+  <img src="ventana hanning sin aplicar.png" alt="VENTANA HANNING SIN APLICAR" width="800"/>
+</div
+
+Se ejemplifica el aventanamiento a cada contracción con la primera y la última respectivamente:
+
+<div align="center">
+  <img src="señal filtrada lab 3.png" alt="SEÑAL EMG BRAQUIRADIAL FILTRADA" width="800"/>
+</div>
+
 ## ANÁLISIS ESPECTRAL
 
 El análisis espectral es crucial en el estudio de la fatiga muscular, ya que permite identificar cambios en las características de la señal EMG a medida que se producen contracciones sucesivas. En este análisis, se evaluará cómo cambia el espectro de la señal EMG en cada ventana, se analizará la frecuencia mediana y se realizará una prueba de hipótesis para determinar la significancia estadística de estos cambios.
