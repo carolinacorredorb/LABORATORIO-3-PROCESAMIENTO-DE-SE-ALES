@@ -106,11 +106,106 @@ Luego de obtener la señal filtrada se procedio a hacer el aventanamiento:
 
 Para llevar a cabo un sistema que logre distinguir entre la hipótesis de si la mediana disminuye o no, se seleccionó el método de Hanning para aplicar un aventanamiento suave a las contracciones de la señal EMG, lo que ayuda a minimizar los efectos de discontinuidades en los extremos de las ventanas. Asignando menos peso a los valores de los extremos y más a los valores centrales. Este método fue óptimo al estar tratando con segmentos ( contracciones musculares), porque atenúa las transiciones abruptas entre ellos, mejorando la calidad de las frecuencias analizadas. Primero se planteó la gráfica de la ventana sin aplicar a la señal EMG obteniendo lo siguiente:
 
+```python
+
+
+#VENTANA HANNING SIN CONVOLUCIÓN:
+    
+
+
+def dividir_en_contracciones(data, num_contracciones):
+    longitud = len(data)
+    tamaño_ventana = longitud // num_contracciones
+    contracciones = [data[i*tamaño_ventana:(i+1)*tamaño_ventana] for i in range(num_contracciones)]
+    return contracciones
+
+# Generar ventanas de Hanning para cada contracción sin multiplicarlas por la señal
+def generar_ventanas_para_contracciones(contracciones):
+    ventanas = []
+    for contraccion in contracciones:
+        ventana = windows.hann(len(contraccion)) 
+        ventanas.append(ventana)  
+    return ventanas
+
+
+num_contracciones = 24
+contracciones_filtradas = dividir_en_contracciones(valores_filtrados, num_contracciones)
+
+ventanas_hanning = generar_ventanas_para_contracciones(contracciones_filtradas)
+
+ventanas_hanning_concatenadas = np.concatenate(ventanas_hanning)
+
+# Graficar solo las ventanas
+plt.figure(figsize=(20, 6))  
+plt.plot(ventanas_hanning_concatenadas, label='Ventanas de Hanning', color='red')
+plt.title('Ventanas de Hanning aplicadas a cada contracción (Concatenadas)')
+plt.xlabel('Tiempo (muestras)')
+plt.ylabel('Amplitud')
+plt.grid(True)
+plt.legend()
+
+plt.show()
+
+```
+
 <div align="center">
   <img src="ventana hanning sin aplicar.png" alt="VENTANA HANNING SIN APLICAR" width="800"/>
 </div
 
 Posteriormente se realizó la convolución entre esta y la señal obteniendo de forma exitosa una señal más limpia en el dominio del tiempo como se ejemplifica a continuación con la primera y la última respectivamente:
+
+```python
+
+#VENTANA HANNING Y CONVOLUCIÓN  POR CONTRACCIÓN
+
+
+# Aplicar la ventana de Hanning
+def aplicar_ventana_hanning(data):
+    ventana = windows.hann(len(data))
+    return data * ventana  
+
+# Aplicar aventanamiento a cada contracción
+def aplicar_ventana_a_contracciones(contracciones):
+    contracciones_aventanadas = []
+    for contraccion in contracciones:
+        ventana = windows.hann(len(contraccion))  
+        contracciones_aventanadas.append(contraccion * ventana)  
+    return contracciones_aventanadas
+
+
+contracciones_filtradas_hanning = aplicar_ventana_a_contracciones(contracciones_filtradas)
+
+for i, contraccion_hanning in enumerate(contracciones_filtradas_hanning):
+    plt.figure(figsize=(20, 6))  # Ajustar el tamaño del gráfico
+    plt.plot(contraccion_hanning, label=f'Contracción {i+1} - Filtrada con Ventana Hanning', color='orange')
+    plt.title(f'Contracción {i+1} - Señal EMG Filtrada con Ventana Hanning')
+    plt.xlabel('Tiempo (muestras)')
+    plt.ylabel('Voltaje (mV)')
+    plt.grid(True)
+    plt.legend()
+    
+    plt.show()
+
+
+# MOSTRAR SEÑAL TOTAL CON AVENTANAMIENTO
+
+
+def concatenar_contracciones(contracciones):
+    return np.concatenate(contracciones)
+
+señal_filtrada_hanning_contracciones = concatenar_contracciones(contracciones_filtradas_hanning)
+
+
+plt.figure(figsize=(20, 6))  
+plt.plot(señal_filtrada_hanning_contracciones, label='Señal Filtrada con Ventana Hanning en cada contracción', color='orange')
+plt.title('Señal EMG Filtrada con Ventana Hanning en Cada Contracción (Concatenada)')
+plt.xlabel('Tiempo (muestras)')
+plt.ylabel('Voltaje (mV)')
+plt.grid(True)
+plt.legend()
+
+plt.show()
+```
 
 <div align="center">
   <img src="ultima contraccion ya ventana.png" alt="SEÑAL 1 con ventana" width="800"/>
@@ -141,7 +236,80 @@ El análisis espectral es crucial en el estudio de la fatiga muscular, ya que pe
 5. Cálculo de la Transformada de Fourier: Se calculó la FFT para cada contracción, y se extrajeron las magnitudes de la transformada para evaluar el espectro de frecuencias.
 
 6. Frecuencia Mediana: Para cada contracción, se calculó la frecuencia mediana como una medida representativa de la actividad muscular en esa ventana.
-   
+
+### Código empleado para dicho análisis y test de medias:
+
+```python
+#TRANSFORMADA DE FOURIER A LA SEÑAL CON AVENTANAMIENTO:
+
+    
+for i, contraccion_hanning in enumerate(contracciones_filtradas_hanning):
+    frecuencia = np.fft.fftfreq(len(contraccion_hanning), 1 / Fs)  
+    transformada = np.fft.fft(contraccion_hanning) 
+    
+    # Magnitud de la Transformada de Fourier
+    magnitude = np.abs(transformada)
+    
+    # Frecuencias positivas
+    freqs_pos = frecuencia[:len(frecuencia)//2]
+    mag_pos = magnitude[:len(magnitude)//2]
+
+    # Cálculo de la frecuencia dominante
+    freq_dominante = freqs_pos[np.argmax(mag_pos)]
+    
+    # Cálculo de la frecuencia media 
+    freq_media = np.sum(freqs_pos * mag_pos) / np.sum(mag_pos)
+    
+    # Cálculo de la frecuencia mediana
+    freq_mediana = np.median(freqs_pos)
+    
+    # Cálculo de la desviación estándar de las frecuencias:
+    freq_std = np.sqrt(np.sum(mag_pos * (freqs_pos - freq_media)**2) / np.sum(mag_pos))
+
+    print(f"Contracción {i+1}:")
+    print(f"  Frecuencia dominante: {freq_dominante:.2f} Hz")
+    print(f"  Frecuencia media: {freq_media:.2f} Hz")
+    print(f"  Frecuencia mediana: {freq_mediana:.2f} Hz")
+    print(f"  Desviación estándar de las frecuencias: {freq_std:.2f} Hz")
+    
+    # Gráfico de la magnitud de la Transformada de Fourier para cada contracción
+    plt.figure(figsize=(20, 6))
+    plt.plot(freqs_pos, mag_pos, color='purple')
+    plt.title(f'Transformada de Fourier - Contracción {i+1}')
+    plt.xlabel('Frecuencia (Hz)')
+    plt.ylabel('Magnitud')
+    plt.grid(True)
+    plt.show()
+
+
+#TEST DE MEDIAS:
+
+
+# Obtener la magnitud de la Transformada de Fourier para la primera y última contracción
+mag_primera = np.abs(np.fft.fft(contracciones_filtradas_hanning[0])[:len(freqs_pos)])
+mag_ultima = np.abs(np.fft.fft(contracciones_filtradas_hanning[-1])[:len(freqs_pos)])
+
+# Calcular la frecuencia media para la primera y última contracción (ponderada por la magnitud)
+freq_media_primera = np.sum(freqs_pos * mag_primera) / np.sum(mag_primera)
+freq_media_ultima = np.sum(freqs_pos * mag_ultima) / np.sum(mag_ultima)
+
+# Realizar el test t de muestras independientes usando las magnitudes de la FFT
+t_stat, p_valor = stats.ttest_ind(mag_primera, mag_ultima, alternative='greater')
+
+# Mostrar los resultados
+print(f"Frecuencia media de la primera contracción: {freq_media_primera:.2f} Hz")
+print(f"Frecuencia media de la última contracción: {freq_media_ultima:.2f} Hz")
+print(f"Estadístico t: {t_stat:.2f}")
+print(f"p-valor: {p_valor:.4f}")
+
+# Interpretación del resultado
+alpha = 0.05  # Nivel de significancia (5%)
+if p_valor < alpha:
+    print("La frecuencia media de la primera contracción es significativamente mayor que la última. Se observa fatiga.")
+else:
+    print("No hubo un cambio significativo entre la frecuencia media de la primera y la última contracción. No se observa fatiga.")
+
+```
 ### Observación de Cambios en el Espectro de la Señal
 
 El análisis espectral revela que, a medida que se avanza en las contracciones, las magnitudes en frecuencias más altas tienden a disminuir. Este fenómeno indica una disminución en la capacidad del músculo para generar fuerza, lo que es característico del inicio de la fatiga muscular. A medida que el músculo se fatiga, se espera que el espectro de la señal EMG refleje una reducción en la energía de las frecuencias más altas, sugiriendo que el músculo no puede mantener su rendimiento óptimo.
