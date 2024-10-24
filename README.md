@@ -31,7 +31,7 @@ Después de haber guardado y procesado la señal, en python se muestra la gráfi
 
 ## FILTRADO DE LA SEÑAL 
 
-Como se mencionó anteriormente se busca encontrar la llegada del músculo a la fatiga, por ende se busca realizar el filtrado de la señal mediante un pasabanda con intervalo de frecuencias de corte establecidas por literatura siendo Omega 1 = 200 Hz y Omega 2 =  250 Hz. A continuación se describen los aspectos de este filtro:
+Como se mencionó anteriormente se busca encontrar la llegada del músculo a la fatiga, por ende se busca realizar el filtrado de la señal mediante un pasabanda con intervalo de frecuencias de corte establecidas por literatura siendo f_1 = 200 Hz y f_2 =  250 Hz. A continuación se describen los aspectos de este filtro:
 
 Se selecciona el filtro Butterworth pues es ideal para señales EMG ofreciendo una respuesta plana en la banda de paso, evitando así distorsiones en las frecuencias de interés. Su transición suave entre las bandas, adicional a ello en contraste con otros tipos de filtros no introduce ondulaciones como Chebyshev. El orden del filtro se asumió n = 4 y de acuerdo a ello se calcularon los Ks de la configuración. Como se muestra a continuación:
 
